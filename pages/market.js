@@ -34,6 +34,10 @@ const Market = () => {
     console.log(formattedData)
   }
 
+  const loading = {
+    noRowsLabel: "Loading Latest Market Price ..... Please Wait"
+  }
+
   return (
     <GuestLayout>
       <div className={styles.market}>
@@ -42,7 +46,9 @@ const Market = () => {
           columns={columns}
           pageSize={30}
           rowsPerPageOptions={[30]}
-          disableSelectionOnClick />
+          disableSelectionOnClick
+          localeText={loading}
+        />
       </div>
     </GuestLayout>
   )
