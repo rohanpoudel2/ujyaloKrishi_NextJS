@@ -2,6 +2,8 @@ import express from "express";
 const app = express();
 
 import authRoutes from "./routes/auth.js";
+import questionRoutes from "./routes/questions.js";
+import answerRoutes from "./routes/answers.js";
 
 //middlewares
 import cors from "cors";
@@ -19,6 +21,8 @@ app.use(cookieParser());
 
 
 app.use('/api/auth/', authRoutes);
+app.use('/api/questions', questionRoutes);
+app.use('/api/answers', answerRoutes);
 
 
 app.listen(8008, () => {

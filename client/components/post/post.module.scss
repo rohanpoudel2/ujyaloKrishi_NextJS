@@ -7,6 +7,10 @@
   margin-top: 20px;
   border-radius: 20px;
 
+  .askedDate {
+    font-weight: lighter;
+  }
+
   .question {
     .title {
       font-size: 44px;
@@ -45,5 +49,18 @@
   .answers {
     margin-top: 10px;
     margin-left: 50px;
+
+    textarea {
+      padding: 5px 10px;
+      width: 90%;
+      outline-color: $primary-color ;
+    }
+
+    ul {
+      .createdAt {
+        font-weight: lighter;
+      }
+    }
+
   }
 }
