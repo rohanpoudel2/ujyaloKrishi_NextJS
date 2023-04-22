@@ -1,0 +1,49 @@
+@import "../../styles/colors.scss";
+
+.post {
+  width: 50vw;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 20px;
+
+  .question {
+    .title {
+      font-size: 44px;
+    }
+
+    .description {
+      margin-top: 10px;
+      font-weight: 300;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+    ;
+
+    span {
+      font-weight: 300;
+
+      &:first-of-type {
+        font-weight: normal;
+      }
+    }
+  }
+
+  .answersButton {
+    padding: 5px 20px;
+    font-size: 18px;
+    border-radius: 20px;
+    border: none;
+    background-color: $primary-color;
+    cursor: pointer;
+  }
+
+  .answers {
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+}

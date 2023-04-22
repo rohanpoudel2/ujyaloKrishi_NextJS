@@ -1,0 +1,56 @@
+@import '../../styles/colors.scss';
+
+.mainNav {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 0px 0px 16px 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  .navContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .navLogo {
+      flex: 4;
+      width: 100px;
+      height: 100px;
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .navElements {
+      flex: 1.5;
+      display: flex;
+      list-style: none;
+      width: 300px;
+      align-items: center;
+      justify-content: space-between;
+
+      .navElement {
+        transition: 0.2s ease-in-out;
+        background-color: $secondary_color;
+        font-weight: bold;
+        color: white;
+        font-size: 18px;
+        padding: 10px;
+        border-radius: 20px;
+
+        &:hover {
+          scale: 1.02;
+          transition: 0.2s ease-in-out;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+}

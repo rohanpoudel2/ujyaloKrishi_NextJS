@@ -1,0 +1,47 @@
+@import "../../styles/colors.scss";
+
+.addPost {
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .formElements {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        padding: 15px 10px;
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid black;
+        outline: none;
+        margin-bottom: 20px;
+      }
+
+      textarea {
+        padding: 15px 10px;
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid black;
+        margin-bottom: 20px;
+        outline: none;
+      }
+    }
+
+    button {
+      padding: 5px 10px;
+      border-radius: 10px;
+      border: none;
+      background-color: $primary-color;
+      font-size: 20px;
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        transition: 0.2s ease-in-out;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+      }
+    }
+  }
+}

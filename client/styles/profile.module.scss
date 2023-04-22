@@ -1,0 +1,21 @@
+@import "./colors.scss";
+
+.profile {
+  margin-top: 120px;
+
+  button {
+    padding: 10px 20px;
+    background-color: $primary-color;
+    border-radius: 20px;
+    font-size: 18px;
+    border: none;
+    font-weight: bold;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      transition: 0.2s ease-in-out;
+      scale: 1.02;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.news {
+  margin-top: 120px;
+
+  .topbar {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .newsCards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+}
