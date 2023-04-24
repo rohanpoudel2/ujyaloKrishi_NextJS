@@ -1,8 +1,11 @@
 import moment from "moment";
 import styles from "./ownrequest.module.scss";
 import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 const OwnRequest = ({ request }) => {
+
+  const queryClient = useQueryClient();
 
   const handleDelete = async () => {
     try {
@@ -11,7 +14,9 @@ const OwnRequest = ({ request }) => {
         params: {
           id: request.id
         }
-      });
+      }).then(() => {
+        queryClient.invalidateQueries(["requests"]);
+      })
     } catch (error) {
       console.error(error);
     }

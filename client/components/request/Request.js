@@ -5,12 +5,27 @@ import { withAuth } from '@/lib/withAuth';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { makeRequest } from '@/utils/axios';
 
-const Request = () => {
+const Request = ({ request }) => {
 
   const { currentUser } = useContext(AuthContext);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const router = useRouter();
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (newOffer) => {
+      return makeRequest.post('/offers', newOffer);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["offers"]);
+      },
+    }
+  );
 
   useEffect(() => {
     if (currentUser.type !== "volunteer") {
@@ -19,6 +34,10 @@ const Request = () => {
       setIsLoadingUser(false);
     }
   }, [])
+
+  const handleOffer = () => {
+    mutation.mutate({ requestId: request?.id });
+  }
 
   if (isLoadingUser) {
     return <div>Loading...</div>;
@@ -35,14 +54,17 @@ const Request = () => {
         />
         <div className={styles.info}>
           <h2 className={styles.title}>
-            Help Needed for Wheat Harvesting !!
+            {request?.title}
           </h2>
+          <p>
+            {request?.desc}
+          </p>
           <span className={styles.location}>
-            <i className="fa-solid fa-location-dot"></i> Syangja, Nepal
+            <i className="fa-solid fa-location-dot"></i> {request?.city}
           </span>
         </div>
       </div>
-      <button>
+      <button onClick={handleOffer}>
         Offer Help
       </button>
     </div>

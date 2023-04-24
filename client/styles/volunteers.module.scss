@@ -40,4 +40,24 @@
       ;
     }
   }
+
+  .offersReceived {
+    background-color: $secondary-color;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 2px;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: orangered;
+      scale: 1.02;
+      transition: 0.2s ease-in-out;
+    }
+  }
 }

@@ -5,10 +5,13 @@ import { withAuth } from "@/lib/withAuth";
 import { useContext, useState } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import FarmerRequest from '@/lib/farmerRequest';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '@/utils/axios';
+import OffersModal from '@/components/offersModal/OffersModal';
 
 const Volunteers = () => {
+
+  const [showOffers, setShowOffers] = useState(false);
 
   const [inputs, setInputs] = useState({
     title: "",
@@ -17,7 +20,7 @@ const Volunteers = () => {
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
+  const mutationRequest = useMutation(
     (newRequest) => {
       return makeRequest.post('/requests', newRequest);
     },
@@ -36,12 +39,20 @@ const Volunteers = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    mutation.mutate(inputs);
+    mutationRequest.mutate(inputs);
     setInputs({
       title: "",
       desc: ""
     });
   }
+
+  const { isLoading, error, data } = useQuery(['requests'], () =>
+    makeRequest.get("/requests/all").then((res) => {
+      return res.data;
+    })
+  );
+
+  console.log(data)
 
   return (
     <>
@@ -58,16 +69,20 @@ const Volunteers = () => {
                 </p>
               </div>
               <div className={styles.requests}>
-                <Request />
-                <Request />
-                <Request />
-                <Request />
-                <Request />
-                <Request />
+                {
+                  data?.map((request) => (
+                    <Request request={request} key={request.id} />
+                  ))
+                }
               </div>
             </>
             :
             <>
+              {
+                showOffers
+                &&
+                <OffersModal state={showOffers} setState={setShowOffers} />
+              }
               <form className={styles.requestForm}>
                 <input type="text" name="title" placeholder='Help Request Title' onChange={handleChange} />
                 <textarea name="desc" id="desc" cols="30" rows="2" placeholder='Help Request Definition' onChange={handleChange}></textarea>
@@ -75,6 +90,9 @@ const Volunteers = () => {
                   <i className="fa-solid fa-hand-holding-hand"></i>
                 </button>
               </form>
+              <button className={styles.offersReceived} onClick={() => setShowOffers(!showOffers)}>
+                View Offers
+              </button>
               <FarmerRequest />
             </>
           }
