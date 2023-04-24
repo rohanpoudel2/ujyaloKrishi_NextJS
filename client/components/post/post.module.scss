@@ -54,11 +54,35 @@
       padding: 5px 10px;
       width: 90%;
       outline-color: $primary-color ;
+      border: none;
+      border-bottom: 1px solid black;
+      outline: none;
     }
 
     ul {
-      .createdAt {
-        font-weight: lighter;
+      li {
+        padding: 10px 0px;
+        margin: 10px 0px;
+        border-bottom: 1px solid black;
+
+        .createdAt {
+          font-weight: lighter;
+        }
+      }
+    }
+
+    button {
+      padding: 5px 10px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: none;
+      background-color: $primary-color;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        scale: 1.02;
+        transition: 0.2s ease-in-out;
       }
     }
 

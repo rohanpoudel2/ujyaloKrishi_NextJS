@@ -1,7 +1,7 @@
 import { AuthContext } from "@/context/AuthContext";
 import GuestLayout from "@/layouts/GuestLayout";
 import styles from "@/styles/profile.module.scss";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { withAuth } from "@/lib/withAuth";
 import Image from "next/image";
 import ProfileImage from "@/public/images/heroimages/hero.jpeg"
@@ -9,14 +9,16 @@ import { useRouter } from "next/router";
 
 const Profile = () => {
 
-  const { logout } = useContext(AuthContext);
+  const { logout, currentUser } = useContext(AuthContext);
 
   const router = useRouter();
 
   const handleLogout = async () => {
     await logout()
       .then(() => {
-        router.push('/');
+        if (typeof window !== "undefined") {
+          router.push('/');
+        }
       });
   }
 
@@ -26,20 +28,20 @@ const Profile = () => {
         <div className={styles.userElements}>
           <div className={styles.left}>
             <span className={styles.type}>
-              Farmer
+              {currentUser?.type}
             </span>
             <span className={styles.name}>
-              Rohan Poudel (rohan)
+              {currentUser?.name + " (" + currentUser?.username + ")"}
             </span>
             <span className={styles.city}>
-              Syangja, Nepal
+              {currentUser?.city}
             </span>
             <span className={styles.email}>
-              nsrapoudel@gmail.com
+              {currentUser?.email}
             </span>
             <span className={styles.verified}>
               <div className={styles.true}>
-                Verified: True
+                Verified: {currentUser?.verified ? "True" : "False"}
               </div>
             </span>
             <button onClick={handleLogout}>
@@ -48,12 +50,16 @@ const Profile = () => {
           </div>
           <div className={styles.right}>
             <label htmlFor="file">
-              <Image
-                src={ProfileImage}
-                alt="hello"
-                width={150}
-                height={150}
-              />
+              {
+                currentUser?.profilePic ?
+                  <img src={currentUser?.profilePic} alt="Profile Picture" style={{ width: "150px", height: "150px" }} />
+                  :
+                  <Image
+                    src={ProfileImage}
+                    alt="profile"
+                    style={{ width: "150px", height: "150px", objectFit: "cover" }}
+                  />
+              }
             </label>
             <input type="file" name="file" id="file" hidden />
           </div>

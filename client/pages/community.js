@@ -5,8 +5,24 @@ import AddPost from "@/components/addPost/AddPost";
 import { withAuth } from "@/lib/withAuth";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "@/utils/axios";
+import { useEffect, useContext, useState } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 const Community = () => {
+  const { currentUser } = useContext(AuthContext);
+  const router = useRouter();
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/");
+    } else if (currentUser.type !== "farmer") {
+      router.push("/");
+    } else {
+      setIsLoadingUser(false);
+    }
+  }, [currentUser]);
 
   const { isLoading, error, data } = useQuery(['questions'], () =>
     makeRequest.get('/questions').then((res) => {
@@ -15,6 +31,10 @@ const Community = () => {
   );
 
   console.log(data)
+
+  if (isLoadingUser) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <GuestLayout>
@@ -37,4 +57,4 @@ const Community = () => {
   )
 }
 
-export default withAuth(Community)
+export default withAuth(Community);

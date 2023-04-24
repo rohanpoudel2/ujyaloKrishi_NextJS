@@ -2,7 +2,7 @@ import GuestLayout from "@/layouts/GuestLayout";
 import styles from "@/styles/signup.module.scss";
 import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoginImage from "@/public/images/heroimages/hero.jpeg"
 import Link from "next/link";
 
@@ -12,14 +12,21 @@ const Register = () => {
     username: "",
     email: "",
     password: "",
-    name: ""
+    name: "",
+    city: "",
+    type: ""
   });
 
   const [err, setErr] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  useEffect(() => {
+    console.log(inputs);
+  }, [inputs]);
+
   const handleChange = (e) => {
     setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(inputs)
   }
 
   const handleClick = async (e) => {
@@ -51,6 +58,12 @@ const Register = () => {
             <input type="email" placeholder="Email" name="email" onChange={handleChange} />
             <input type="password" placeholder="Password" name="password" onChange={handleChange} />
             <input type="text" placeholder="Name" name="name" onChange={handleChange} />
+            <input type="text" placeholder="City" name="city" onChange={handleChange} />
+            <select name="type" id="type" onChange={handleChange}>
+              <option value="" selected disabled hidden>Choose here</option>
+              <option value="farmer">Farmer</option>
+              <option value="volunteer">Volunteer</option>
+            </select>
             {err && err}
             {success && "User Created Successfully"}
             <button onClick={handleClick}>Register</button>

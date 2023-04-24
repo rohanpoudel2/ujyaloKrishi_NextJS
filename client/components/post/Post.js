@@ -30,6 +30,9 @@ const Post = ({ question }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    if (answer.length === 0) {
+      return "";
+    }
     try {
       mutation.mutate({ answer, questionId: question.id });
     } catch (error) {
@@ -73,7 +76,7 @@ const Post = ({ question }) => {
               :
               <div className={styles.answers}>
                 <form>
-                  <textarea name="answer" placeholder="Answer this Question" id="answer" cols="90" rows="2" value={answer} onChange={e => setAnswer(e.target.value)}></textarea>
+                  <textarea name="answer" placeholder="Answer this Question" id="answer" cols="90" rows="2" value={answer} onChange={e => setAnswer(e.target.value)} required></textarea>
                   <button type="submit" onClick={handleClick}>
                     Answer
                   </button>
@@ -88,7 +91,9 @@ const Post = ({ question }) => {
                         {answer.desc}
                       </div>
                       <div className={styles.createdAt}>
-                        {answer.answeredAt}
+                        {
+                          moment(answer.answeredAt).fromNow()
+                        }
                       </div>
                     </li>
                   ))}

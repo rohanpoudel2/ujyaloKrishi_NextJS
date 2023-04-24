@@ -18,7 +18,7 @@ export const getQuestions = (req, res) => {
       `;
 
       db.query(q, [userInfo.id, userInfo.id], (err, data) => {
-        if (err) return res.status(200).json(data);
+        if (err) return res.status(500).json(err);
         return res.status(200).json(data);
       });
     });
@@ -46,7 +46,7 @@ export const addQuestion = (req, res) => {
       ];
 
       db.query(q, [values], (err, data) => {
-        if (err) return res.status(200).json(data);
+        if (err) return res.status(500).json(err);
         return res.status(200).json("Question has been asked");
       });
     })

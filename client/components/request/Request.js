@@ -1,8 +1,29 @@
 import Image from 'next/image';
 import styles from './request.module.scss';
 import FarmerProfile from '@/public/images/volunteer/farmerProfile.webp'
+import { withAuth } from '@/lib/withAuth';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+import { useRouter } from 'next/router';
 
 const Request = () => {
+
+  const { currentUser } = useContext(AuthContext);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (currentUser.type !== "volunteer") {
+      router.push("/");
+    } else {
+      setIsLoadingUser(false);
+    }
+  }, [])
+
+  if (isLoadingUser) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.request}>
       <div className={styles.information}>
@@ -28,4 +49,4 @@ const Request = () => {
   )
 }
 
-export default Request
+export default withAuth(Request)

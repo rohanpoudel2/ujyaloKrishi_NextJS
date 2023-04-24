@@ -1,0 +1,45 @@
+@import "../../styles/colors.scss";
+
+.ownRequest {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0px;
+
+
+  .status {
+    font-weight: bold;
+    color: orangered;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .desc {
+    font-size: 16px;
+    margin: 10px 0px;
+  }
+
+  button {
+    padding: 10px 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: red;
+    color: white;
+    letter-spacing: 2px;
+    border: none;
+    transition: 0.2s ease-in-out;
+    margin-right: auto;
+
+    &:hover {
+      scale: 1.02;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+  }
+}
