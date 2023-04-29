@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.js";
 import questionRoutes from "./routes/questions.js";
 import answerRoutes from "./routes/answers.js";
 import requestRoutes from "./routes/requests.js";
+import offerRoutes from "./routes/offers.js";
 
 //middlewares
 import cors from "cors";
@@ -25,6 +26,7 @@ app.use('/api/auth/', authRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/answers', answerRoutes);
 app.use('/api/requests', requestRoutes);
+app.use('/api/offers', offerRoutes);
 
 
 app.listen(8008, () => {

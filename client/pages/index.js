@@ -13,7 +13,7 @@ const Index = () => {
 
   return (
     <>
-      <Swiper
+      {/* <Swiper
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         pagination={true}
         modules={[Autoplay, Pagination]}
@@ -31,7 +31,7 @@ const Index = () => {
         <SwiperSlide>
           <Hero />
         </SwiperSlide>
-      </Swiper>
+      </Swiper> */}
       <GuestLayout>
         <h1 className={styles.mainHeading}>
           Our Tools

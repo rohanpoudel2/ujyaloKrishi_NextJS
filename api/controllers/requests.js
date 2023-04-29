@@ -22,6 +22,24 @@ export const getRequests = (req, res) => {
 
 }
 
+export const getAllRequests = (req, res) => {
+  const token = req.cookies.accessToken;
+
+  if (!token) {
+    return res.status(401).json("Not Logged in to the System");
+  } else {
+    jwt.verify(token, "rohandon", (err, data) => {
+      if (err) return res.status(403).json("Unauthorized");
+      const q = `SELECT r.*, u.id AS userId, name, profilePic, city FROM requests AS r JOIN users AS u ON (u.id = r.userId) ORDER BY r.createdAt DESC`;
+
+      db.query(q, null, (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json(data);
+      });
+    });
+  }
+}
+
 export const addRequest = (req, res) => {
   const token = req.cookies.accessToken;
 
