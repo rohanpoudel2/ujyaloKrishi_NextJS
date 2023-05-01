@@ -28,8 +28,12 @@ const Market = () => {
       average: row[4]
     })).slice(1);
     setPrice(formattedData);
-    console.log(formattedData)
+    console.log(formattedData);
   }
+
+  React.useEffect(() => {
+    getPrice();
+  }, [])
 
   const loading = {
     noRowsLabel: "Loading Latest Market Price ..... Please Wait"
