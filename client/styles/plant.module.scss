@@ -1,7 +1,7 @@
 @import "./colors.scss";
+@import "./mixins/responsive/responsive.scss";
 
 .plant {
-  display: flex;
   margin-top: 120px;
   display: flex;
   align-items: center;
@@ -9,6 +9,10 @@
 
   .left {
     flex: 1;
+
+    @include mobile {
+      display: none;
+    }
 
     img {
       width: 100%;

@@ -17,20 +17,15 @@ const Plant = () => {
             />
           </div>
           <div className={styles.right}>
-            <h1 className={styles.instructions}>
-              Upload the Image here ....
-            </h1>
-            <div className={styles.uploadSection}>
-              <form>
-                <label htmlFor="plant">
-                  <i className="fa-solid fa-arrow-up"></i>
-                  <input type="file" required name="plant" id="plant" hidden />
-                </label>
-              </form>
-            </div>
+            <iframe
+              src="https://hacksberg-plant.hf.space/"
+              width="100%"
+              height="600px"
+              frameborder="0"
+            ></iframe>
           </div>
         </div>
-      </GuestLayout>
+      </GuestLayout >
     </>
   )
 }

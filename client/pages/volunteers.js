@@ -83,17 +83,26 @@ const Volunteers = () => {
                 &&
                 <OffersModal state={showOffers} setState={setShowOffers} />
               }
-              <form className={styles.requestForm}>
-                <input type="text" name="title" placeholder='Help Request Title' onChange={handleChange} />
-                <textarea name="desc" id="desc" cols="30" rows="2" placeholder='Help Request Definition' onChange={handleChange}></textarea>
-                <button onClick={handleClick}>
-                  <i className="fa-solid fa-hand-holding-hand"></i>
-                </button>
-              </form>
-              <button className={styles.offersReceived} onClick={() => setShowOffers(!showOffers)}>
-                View Offers
-              </button>
-              <FarmerRequest />
+              <div className={styles.forFarmers}>
+                <div className={styles.left}>
+                  <h2>
+                    Make a request for Volunteers Here
+                  </h2>
+                  <form className={styles.requestForm}>
+                    <input type="text" name="title" placeholder='Help Request Title' onChange={handleChange} />
+                    <textarea name="desc" id="desc" cols="30" rows="2" placeholder='Help Request Definition' onChange={handleChange}></textarea>
+                    <button onClick={handleClick}>
+                      <i className="fa-solid fa-hand-holding-hand"></i>
+                    </button>
+                  </form>
+                  <button className={styles.offersReceived} onClick={() => setShowOffers(!showOffers)}>
+                    View Offers
+                  </button>
+                </div>
+                <div className={styles.right}>
+                  <FarmerRequest />
+                </div>
+              </div>
             </>
           }
 
