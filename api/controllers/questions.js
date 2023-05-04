@@ -52,3 +52,28 @@ export const addQuestion = (req, res) => {
     })
   }
 }
+
+export const deleteQuestion = (req, res) => {
+
+  const token = req.cookies.accessToken;
+
+  if (!token) {
+    return res.status(401).json("Not Logged in " + req.cookies.accessToken);
+  } else {
+    jwt.verify(token, "rohandon", (err, userInfo) => {
+      if (err) res.status(403).json("Not logged in to the System");
+
+      const q = "DELETE FROM questions WHERE id = ?";
+
+      const values = [
+        req.query.id
+      ];
+
+      db.query(q, [values], (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json("Question has been deleted");
+      })
+    })
+  }
+
+}

@@ -1,8 +1,10 @@
 import styles from "./post.module.scss";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import { makeRequest } from "@/utils/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AuthContext } from "@/context/AuthContext";
+import axios from "axios";
 
 const Post = ({ question }) => {
 
@@ -41,14 +43,27 @@ const Post = ({ question }) => {
     setAnswer("");
   }
 
-  console.log(data)
+  const { currentUser } = useContext(AuthContext);
 
-  console.log("question id" + question.id)
+  const handleDelete = async () => {
+    try {
+      await axios.delete("http://localhost:8008/api/questions", {
+        withCredentials: true,
+        params: {
+          id: question.id
+        }
+      }).then(() => {
+        queryClient.invalidateQueries(["questions"]);
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className={styles.post}>
       <span className={styles.askedDate}>
-        Asked At: {moment(question.createdAt).fromNow()}
+        Asked {moment(question.createdAt).fromNow()}
       </span>
       <div className={styles.question}>
         <h2 className={styles.title}>
@@ -63,9 +78,16 @@ const Post = ({ question }) => {
         <span>{question.name}</span>
         <span>{question.city}</span>
       </div>
-      <button className={styles.answersButton} onClick={() => setShowComment(!showComment)}>
-        View Answers
-      </button>
+      <div className={styles.btns}>
+        <button className={styles.answersButton} onClick={() => setShowComment(!showComment)}>
+          View Answers
+        </button>
+        {
+          question.userId === currentUser.id ? <button onClick={handleDelete} className={styles.deleteButton}> 🗑️ Delete
+          </button> :
+            ""
+        }
+      </div>
       {
         showComment && (
           error ?

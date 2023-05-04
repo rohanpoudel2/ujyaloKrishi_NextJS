@@ -23,12 +23,6 @@ const Nav = () => {
           </Link>
         </div>
         <ul className={styles.navElements}>
-          <li className={styles.navElement}>
-            About
-          </li>
-          <li className={styles.navElement}>
-            Features
-          </li>
           {currentUser ? (
             <li className={styles.navElement}>
               <Link href={'/profile'}>
@@ -37,7 +31,7 @@ const Nav = () => {
             </li>
           ) : (
             <li className={styles.navElement}>
-              <Link href={'/auth/signup'}>
+              <Link href={'/auth/register'}>
                 SignUp
               </Link>
             </li>

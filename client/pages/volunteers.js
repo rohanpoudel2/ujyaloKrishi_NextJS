@@ -8,10 +8,19 @@ import FarmerRequest from '@/lib/farmerRequest';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '@/utils/axios';
 import OffersModal from '@/components/offersModal/OffersModal';
+import * as React from 'react';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 const Volunteers = () => {
 
   const [showOffers, setShowOffers] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const [inputs, setInputs] = useState({
     title: "",
@@ -27,9 +36,18 @@ const Volunteers = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["requests"]);
+        setShowAlert(true);
       },
     }
   );
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setShowAlert(false);
+  };
 
   const { currentUser } = useContext(AuthContext);
 
@@ -88,10 +106,10 @@ const Volunteers = () => {
                   <h2>
                     Make a request for Volunteers Here
                   </h2>
-                  <form className={styles.requestForm}>
-                    <input type="text" name="title" placeholder='Help Request Title' onChange={handleChange} />
-                    <textarea name="desc" id="desc" cols="30" rows="2" placeholder='Help Request Definition' onChange={handleChange}></textarea>
-                    <button onClick={handleClick}>
+                  <form className={styles.requestForm} onSubmit={handleClick}>
+                    <input type="text" name="title" placeholder='Help Request Title' onChange={handleChange} value={inputs.title} required />
+                    <textarea name="desc" id="desc" cols="30" rows="2" placeholder='Help Request Definition' value={inputs.desc} onChange={handleChange} required></textarea>
+                    <button>
                       <i className="fa-solid fa-hand-holding-hand"></i>
                     </button>
                   </form>
@@ -107,6 +125,17 @@ const Volunteers = () => {
           }
 
         </div>
+        {
+          showAlert && (
+            <>
+              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                  Volunteer Request Made Successfully
+                </Alert>
+              </Snackbar>
+            </>
+          )
+        }
       </GuestLayout>
 
     </>

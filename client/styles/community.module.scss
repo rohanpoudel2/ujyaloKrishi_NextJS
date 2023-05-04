@@ -1,12 +1,23 @@
 .community {
   margin-top: 120px;
-  padding: 20px;
-  border-radius: 20px;
+  display: flex;
 
-  .posts {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
+  .left {
+    flex: 1.5;
+    margin-right: 20px;
   }
+
+  .right {
+    flex: 1;
+
+    .posts {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      height: 100vh;
+      overflow: scroll;
+    }
+  }
+
 }

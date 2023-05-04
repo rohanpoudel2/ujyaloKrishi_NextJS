@@ -53,20 +53,21 @@ const Register = () => {
               alt="LoginImage"
             />
           </div>
-          <form>
-            <input type="text" placeholder="Username" name="username" onChange={handleChange} />
-            <input type="email" placeholder="Email" name="email" onChange={handleChange} />
-            <input type="password" placeholder="Password" name="password" onChange={handleChange} />
-            <input type="text" placeholder="Name" name="name" onChange={handleChange} />
-            <input type="text" placeholder="City" name="city" onChange={handleChange} />
-            <select name="type" id="type" onChange={handleChange}>
+          <form onSubmit={handleClick}>
+            <h2>Hello Dear, Create an Account Here</h2>
+            <input type="text" placeholder="Username" name="username" onChange={handleChange} required />
+            <input type="email" placeholder="Email" name="email" onChange={handleChange} required />
+            <input type="password" placeholder="Password" name="password" onChange={handleChange} required />
+            <input type="text" placeholder="Name" name="name" onChange={handleChange} required />
+            <input type="text" placeholder="City" name="city" onChange={handleChange} required />
+            <select name="type" id="type" onChange={handleChange} required>
               <option value="" selected disabled hidden>Choose here</option>
               <option value="farmer">Farmer</option>
               <option value="volunteer">Volunteer</option>
             </select>
             {err && err}
             {success && "User Created Successfully"}
-            <button onClick={handleClick}>Register</button>
+            <button type="submit">Register</button>
             <span className={styles.loginLink}>
               Already Have an Account? <Link href={"/auth/login"}>Login Here</Link>
             </span>
