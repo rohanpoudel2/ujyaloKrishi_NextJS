@@ -39,22 +39,21 @@ const Community = () => {
   return (
     <GuestLayout>
       <div className={styles.community}>
-        <div className={styles.left}>
-          <AddPost />
-        </div>
-        <div className={styles.right}>
-          <div className={styles.posts}>
-            {
-              error ? "OOPS!!! Something Went Wrong."
+        <AddPost />
+        <h3 className={styles.title}>
+          Recent Questions
+        </h3>
+        <div className={styles.posts}>
+          {
+            error ? "OOPS!!! Something Went Wrong."
+              :
+              (isLoading ? "Loading..."
                 :
-                (isLoading ? "Loading..."
-                  :
-                  data.map((question) => (
-                    <Post key={question.id} question={question} />
-                  ))
-                )
-            }
-          </div>
+                data.map((question) => (
+                  <Post key={question.id} question={question} />
+                ))
+              )
+          }
         </div>
       </div>
     </GuestLayout>

@@ -9,55 +9,55 @@
     flex-direction: column;
 
     input {
-      padding: 10px 10px;
+      padding: 10px 5px;
       border: none;
       border-bottom: 1px solid black;
-      font-size: 20px;
-      margin-bottom: 20px;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
 
     textarea {
-      padding: 10px;
-      font-size: 20px;
-      margin-bottom: 20px;
+      padding: 10px 5px;
+      font-size: 16px;
+      margin-bottom: 10px;
       border: none;
       border-bottom: 1px solid black;
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 30px;
+      padding: 10px 5px;
+      font-size: 14px;
       border: none;
       background-color: $primary-color;
-      border-radius: 20px;
+      border-radius: 10px;
       transition: 0.2s ease-in-out;
 
       &:hover {
-        scale: 1.02;
+        opacity: 0.9;
         transition: 0.2s ease-in-out;
         cursor: pointer;
       }
 
-      ;
+      i {
+        margin-right: 10px;
+      }
     }
   }
 
   .offersReceived {
     background-color: $secondary-color;
     border: none;
-    padding: 10px 20px;
-    font-size: 20px;
-    margin-top: 20px;
-    border-radius: 20px;
-    font-weight: bold;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-weight: 500;
     color: white;
-    letter-spacing: 2px;
     transition: 0.2s ease-in-out;
 
     &:hover {
       cursor: pointer;
-      background-color: orangered;
-      scale: 1.02;
+      opacity: 0.9;
       transition: 0.2s ease-in-out;
     }
   }
@@ -84,7 +84,7 @@
 
     .right {
       flex: 1;
-      height: 100vh;
+      height: calc(100vh - 120px);
       overflow: scroll;
 
       @include mobile {

@@ -4,36 +4,24 @@
   width: 100%;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  margin-top: 20px;
-  border-radius: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
 
   .askedDate {
-    font-weight: lighter;
+    font-weight: 200;
+    font-size: 12px;
   }
 
   .question {
     .title {
-      font-size: 44px;
+      font-size: 24px;
     }
 
     .description {
-      margin-top: 10px;
+      margin-top: 5px;
       font-weight: 300;
-    }
-  }
-
-  .info {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0px;
-    ;
-
-    span {
-      font-weight: 300;
-
-      &:first-of-type {
-        font-weight: normal;
-      }
+      font-size: 16px;
+      margin-bottom: 10px;
     }
   }
 
@@ -43,11 +31,16 @@
     align-items: center;
 
     button {
-      padding: 5px 20px;
-      font-size: 18px;
-      border-radius: 20px;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 10px;
       border: none;
       cursor: pointer;
+
+      &:hover {
+        transition: 0.2s ease-in-out;
+        opacity: 0.9;
+      }
     }
 
     .answersButton {
@@ -64,32 +57,51 @@
 
   .answers {
     margin-top: 10px;
-    margin-left: 50px;
+    padding-top: 10px;
+    border-top: 1px solid gray;
+
+    .first_text {
+      font-weight: 500;
+    }
 
     textarea {
-      padding: 5px 10px;
-      width: 90%;
+      padding: 5px;
+      width: 50%;
       outline-color: $primary-color ;
       border: none;
       border-bottom: 1px solid black;
       outline: none;
+      margin-right: 10px;
     }
 
     ul {
+      margin-left: 10px;
+
       li {
         padding: 10px 0px;
         margin: 10px 0px;
         border-bottom: 1px solid black;
 
+        .user {
+          font-weight: 500;
+          font-size: 14px;
+        }
+
+        .answer {
+          font-weight: 300;
+          font-size: 16px;
+        }
+
         .createdAt {
-          font-weight: lighter;
+          font-weight: 200;
+          font-size: 12px;
         }
       }
     }
 
     button {
       padding: 5px 10px;
-      font-size: 16px;
+      font-size: 14px;
       border-radius: 20px;
       border: none;
       background-color: $primary-color;
@@ -97,8 +109,8 @@
       transition: 0.2s ease-in-out;
 
       &:hover {
-        scale: 1.02;
         transition: 0.2s ease-in-out;
+        opacity: 0.9;
       }
     }
 

@@ -4,6 +4,9 @@ import { useContext, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/AuthContext";
+import Image from "next/image";
+import LogoSmall from "@/public/logo_small.png";
+import LoginBackground from "@/public/images/auth/login.jpeg";
 
 const Register = () => {
 
@@ -39,32 +42,32 @@ const Register = () => {
       }, 3000);
     } catch (error) {
       setSuccess(null);
-      setErr(error.response.data);
-      console.error(error.response.data);
+      setErr(error?.response?.data);
+      console.error(error);
     }
   };
 
   return (
     <GuestLayout>
       <div className={styles.login}>
+        <Image
+          src={LoginBackground}
+          alt="loginBackground"
+        />
         <div className={styles.loginCard}>
-          <div className={styles.left}>
-            <h1>
-              Hello Dear, You can Sign in Here.
-            </h1>
-            <span>Don't have an account? <Link href={'/auth/register'}>Register Here</Link></span>
-          </div>
-          <div className={styles.right}>
-            <h1>Login</h1>
-            <form onSubmit={handleLogin}>
-              <input type="text" placeholder="Username" name="username" onChange={handleChange} required />
-              <input type="password" placeholder="Password" name="password" onChange={handleChange} required />
-              {err && <p className={styles.loginError}>{`*${err}`}</p>}
-              {success && <p className={styles.loginSuccess}>{`Login Success. Please Wait ${countdown} seconds. Now Redirecting....`}</p>}
-              <button type="submit">Login</button>
-              <span>Don't have an account? <Link href={'/auth/register'}>Register Here</Link></span>
-            </form>
-          </div>
+          <Image
+            src={LogoSmall}
+            alt="small logo"
+          />
+          <h3>Log in to Ujyalo Krishi</h3>
+          <form onSubmit={handleLogin}>
+            <input type="text" placeholder="Username" name="username" onChange={handleChange} required />
+            <input type="password" placeholder="Password" name="password" onChange={handleChange} required />
+            <button type="submit">Login</button>
+            {err && <p className={styles.loginError}>{`*${err}`}</p>}
+            {success && <p className={styles.loginSuccess}>{`Login Success. Please Wait ${countdown} seconds. Now Redirecting....`}</p>}
+          </form>
+          <span>Not a member of Ujyalo Krishi? <Link href={'/auth/register'}>Register Here</Link></span>
         </div>
       </div>
     </GuestLayout>

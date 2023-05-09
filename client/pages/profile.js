@@ -4,7 +4,7 @@ import styles from "@/styles/profile.module.scss";
 import { useContext, useState } from "react";
 import { withAuth } from "@/lib/withAuth";
 import Image from "next/image";
-import ProfileImage from "@/public/images/heroimages/hero.jpeg"
+import ProfileImage from "@/public/images/profile/default.png"
 import { useRouter } from "next/router";
 
 const Profile = () => {

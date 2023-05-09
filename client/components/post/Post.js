@@ -63,7 +63,7 @@ const Post = ({ question }) => {
   return (
     <div className={styles.post}>
       <span className={styles.askedDate}>
-        Asked {moment(question.createdAt).fromNow()}
+        Asked {moment(question.createdAt).fromNow()} by {question.name} from {question.city}
       </span>
       <div className={styles.question}>
         <h2 className={styles.title}>
@@ -72,11 +72,6 @@ const Post = ({ question }) => {
         <p className={styles.description}>
           {question.desc}
         </p>
-      </div>
-      <div className={styles.info}>
-        <span>Asked By</span>
-        <span>{question.name}</span>
-        <span>{question.city}</span>
       </div>
       <div className={styles.btns}>
         <button className={styles.answersButton} onClick={() => setShowComment(!showComment)}>
@@ -97,9 +92,10 @@ const Post = ({ question }) => {
               "Loading ..."
               :
               <div className={styles.answers}>
-                <form>
-                  <textarea name="answer" placeholder="Answer this Question" id="answer" cols="90" rows="2" value={answer} onChange={e => setAnswer(e.target.value)} required></textarea>
-                  <button type="submit" onClick={handleClick}>
+                <span className={styles.first_text}>Answer this Question</span>
+                <form onSubmit={handleClick}>
+                  <textarea name="answer" placeholder="Your Answer" id="answer" cols="90" rows="2" value={answer} onChange={e => setAnswer(e.target.value)} required></textarea>
+                  <button type="submit" >
                     Answer
                   </button>
                 </form>

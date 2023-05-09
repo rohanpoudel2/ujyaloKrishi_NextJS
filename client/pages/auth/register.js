@@ -3,7 +3,8 @@ import styles from "@/styles/signup.module.scss";
 import axios from "axios";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import LoginImage from "@/public/images/heroimages/hero.jpeg"
+import LoginBackground from "@/public/images/auth/login.jpeg";
+import LogoSmall from "@/public/logo_small.png";
 import Link from "next/link";
 
 const Register = () => {
@@ -38,23 +39,25 @@ const Register = () => {
       setSuccess(true);
     } catch (error) {
       setSuccess(null);
-      setErr(error.response.data);
-      console.error(error.response.data);
+      setErr(error?.response?.data);
+      console.error(error);
     }
   }
 
   return (
     <GuestLayout>
       <div className={styles.register}>
+        <Image
+          src={LoginBackground}
+          alt="loginBackground"
+        />
         <div className={styles.registerBox}>
-          <div className={styles.picture}>
-            <Image
-              src={LoginImage}
-              alt="LoginImage"
-            />
-          </div>
+          <Image
+            src={LogoSmall}
+            alt="small logo"
+          />
+          <h3>Sign up for Ujyalo Krishi</h3>
           <form onSubmit={handleClick}>
-            <h2>Hello Dear, Create an Account Here</h2>
             <input type="text" placeholder="Username" name="username" onChange={handleChange} required />
             <input type="email" placeholder="Email" name="email" onChange={handleChange} required />
             <input type="password" placeholder="Password" name="password" onChange={handleChange} required />
@@ -65,13 +68,13 @@ const Register = () => {
               <option value="farmer">Farmer</option>
               <option value="volunteer">Volunteer</option>
             </select>
-            {err && err}
-            {success && "User Created Successfully"}
             <button type="submit">Register</button>
-            <span className={styles.loginLink}>
-              Already Have an Account? <Link href={"/auth/login"}>Login Here</Link>
-            </span>
+            {err && <p className={styles.loginError}>{`*${err}`}</p>}
+            {success && <p className={styles.loginSuccess}>{`User Created Successfully`}</p>}
           </form>
+          <span className={styles.loginLink}>
+            Already Have an Account? <Link href={"/auth/login"}>Login Here</Link>
+          </span>
         </div>
       </div>
     </GuestLayout>

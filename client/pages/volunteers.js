@@ -16,7 +16,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
 const Volunteers = () => {
 
   const [showOffers, setShowOffers] = useState(false);
@@ -111,6 +110,7 @@ const Volunteers = () => {
                     <textarea name="desc" id="desc" cols="30" rows="2" placeholder='Help Request Definition' value={inputs.desc} onChange={handleChange} required></textarea>
                     <button>
                       <i className="fa-solid fa-hand-holding-hand"></i>
+                      Make Request
                     </button>
                   </form>
                   <button className={styles.offersReceived} onClick={() => setShowOffers(!showOffers)}>
