@@ -1,5 +1,9 @@
 import express from "express";
+import env from "dotenv";
+
 const app = express();
+
+env.config();
 
 import authRoutes from "./routes/auth.js";
 import questionRoutes from "./routes/questions.js";
@@ -20,7 +24,6 @@ app.use(cors({
   origin: "http://localhost:3000",
 }));
 app.use(cookieParser());
-
 
 app.use('/api/auth/', authRoutes);
 app.use('/api/questions', questionRoutes);

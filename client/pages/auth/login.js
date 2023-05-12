@@ -42,8 +42,9 @@ const Register = () => {
       }, 3000);
     } catch (error) {
       setSuccess(null);
-      setErr(error?.response?.data);
+      setErr(error?.response.data);
       console.error(error);
+      console.log(err)
     }
   };
 

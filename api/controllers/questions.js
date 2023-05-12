@@ -9,7 +9,7 @@ export const getQuestions = (req, res) => {
   if (!token) {
     return res.status(401).json("Not Logged in to the System.");
   } else {
-    jwt.verify(token, "rohandon", (err, userInfo) => {
+    jwt.verify(token, process.env.verify_token, (err, userInfo) => {
       if (err) return res.status(403).json("Unauthorized");
       const q = `SELECT q.*, u.id AS userId, name, profilePic, city
       FROM questions AS q 
@@ -33,7 +33,7 @@ export const addQuestion = (req, res) => {
   if (!token) {
     return res.status(401).json("Not Logged in");
   } else {
-    jwt.verify(token, "rohandon", (err, userInfo) => {
+    jwt.verify(token, process.env.verify_token, (err, userInfo) => {
       if (err) res.status(403).json("Not Logged in to the System");
 
       const q = "INSERT INTO questions (`question`, `desc`, `userId`, `createdAt`) VALUES (?)";
@@ -60,7 +60,7 @@ export const deleteQuestion = (req, res) => {
   if (!token) {
     return res.status(401).json("Not Logged in " + req.cookies.accessToken);
   } else {
-    jwt.verify(token, "rohandon", (err, userInfo) => {
+    jwt.verify(token, process.env.verify_token, (err, userInfo) => {
       if (err) res.status(403).json("Not logged in to the System");
 
       const q = "DELETE FROM questions WHERE id = ?";

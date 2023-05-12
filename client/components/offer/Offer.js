@@ -37,14 +37,24 @@ const Offer = ({ offer }) => {
   return (
     <div className={styles.offer}>
       <span>
-        <strong>
-          {offer?.username}
-        </strong> from {offer?.city} has requested to help you on {offer?.title}
+        {
+          offer?.status === 1 ?
+            <>
+              Accepted Request for {offer.title}
+            </>
+            :
+            <>
+              <strong>
+                {offer?.name}
+              </strong> from {offer?.city} has requested to help you on {offer?.title}
+            </>
+        }
       </span>
       {
         offer?.status === 1 ?
           <>
-            <span>Volunteer has been notified</span>
+            <br />
+            <span className={styles.accepted}>{offer?.name} has been Notified 👌</span>
           </>
           :
           <div className={styles.buttons}>

@@ -25,7 +25,7 @@ export const addAnswer = (req, res) => {
   if (!token) {
     return res.status(401).json("Not Logged in");
   } else {
-    jwt.verify(token, "rohandon", (err, userInfo) => {
+    jwt.verify(token, process.env.verify_token, (err, userInfo) => {
       if (err) return res.status(403).json("Unauthorized");
 
       const q = "INSERT INTO answers (`desc`, `answeredAt` ,`userId`,  `questionId`) VALUES (?)";

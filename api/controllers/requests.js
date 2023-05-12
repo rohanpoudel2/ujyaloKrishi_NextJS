@@ -9,7 +9,7 @@ export const getRequests = (req, res) => {
   if (!token) {
     return res.status(401).json("Not Logged in to the System.");
   } else {
-    jwt.verify(token, "rohandon", (err, userInfo) => {
+    jwt.verify(token, process.env.verify_token, (err, userInfo) => {
       if (err) return res.status(403).json("Unauthorized");
       const q = `SELECT r.*, u.id AS userId, name, profilePic, city FROM requests AS r JOIN users AS u ON (u.id = r.userId) WHERE u.id = ? ORDER BY r.createdAt DESC`;
 
@@ -28,7 +28,7 @@ export const getAllRequests = (req, res) => {
   if (!token) {
     return res.status(401).json("Not Logged in to the System");
   } else {
-    jwt.verify(token, "rohandon", (err, data) => {
+    jwt.verify(token, process.env.verify_token, (err, data) => {
       if (err) return res.status(403).json("Unauthorized");
       const q = `SELECT r.*, u.id AS userId, name, profilePic, city FROM requests AS r JOIN users AS u ON (u.id = r.userId) ORDER BY r.createdAt DESC`;
 
@@ -46,7 +46,7 @@ export const addRequest = (req, res) => {
   if (!token) {
     return res.status(401).json("Not Logged in");
   } else {
-    jwt.verify(token, "rohandon", (err, userInfo) => {
+    jwt.verify(token, process.env.verify_token, (err, userInfo) => {
       if (err) res.status(403).json("Not Logged in to the System");
 
       const q = "INSERT INTO requests (`title`, `desc`, `userId`, `createdAt`, `expiresAt`) VALUES (?)";
@@ -74,7 +74,7 @@ export const deleteRequest = (req, res) => {
   if (!token) {
     return res.status(401).json("Not Logged in" + req.cookies.accessToken);
   } else {
-    jwt.verify(token, "rohandon", (err, userInfo) => {
+    jwt.verify(token, process.env.verify_token, (err, userInfo) => {
       if (err) res.status(403).json("Not Logged in to the System");
 
       const q = "DELETE FROM requests WHERE id = ?";
