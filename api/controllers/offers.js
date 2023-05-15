@@ -19,7 +19,6 @@ export const getOffers = (req, res) => {
       JOIN users u ON o.userid = u.id
       JOIN requests rq ON o.requestid = rq.id
       WHERE r.userid = ?;
-      
       `;
 
       db.query(q, [req.query.id], (err, data) => {
@@ -39,31 +38,47 @@ export const makeOffer = (req, res) => {
     jwt.verify(token, process.env.verify_token, (err, userInfo) => {
       if (err) return res.status(403).json("Unauthorized");
 
-      const q = "INSERT INTO offers (`requestId`, `userId`, `status`, `createdAt`) VALUES (?)";
-      const values = [
-        req.body.requestId,
-        userInfo.id,
-        null,
-        moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-      ];
+      const checkOfferQuery = "SELECT * FROM offers WHERE requestId = ? AND userId = ?";
+      const checkOfferValues = [req.body.requestId, userInfo.id];
 
-      db.query(q, [values], (err, data) => {
+      db.query(checkOfferQuery, checkOfferValues, (err, existingOffer) => {
         if (err) return res.status(500).json(err);
 
-        const q1 = "SELECT userId from requests where id = ?";
-        db.query(q1, [req.body.requestId], (err, data) => {
+        if (existingOffer.length > 0) {
+          // User has already made an offer for the same request
+          return res.status(400).json("Offer already exists for this request");
+        }
+
+        const insertOfferQuery = "INSERT INTO offers (`requestId`, `userId`, `status`, `createdAt`) VALUES (?, ?, ?, ?)";
+        const insertOfferValues = [
+          req.body.requestId,
+          userInfo.id,
+          null,
+          moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+        ];
+
+        db.query(insertOfferQuery, insertOfferValues, (err, offerData) => {
           if (err) return res.status(500).json(err);
 
-          const userId = data[0].userId;
+          const selectUserIdQuery = "SELECT userId FROM requests WHERE id = ?";
+          const selectUserIdValues = [req.body.requestId];
 
-          const q2 = "SELECT email from users WHERE id = ?";
-          db.query(q2, [userId], (err, data) => {
+          db.query(selectUserIdQuery, selectUserIdValues, (err, userIdResult) => {
             if (err) return res.status(500).json(err);
 
-            const email = data[0].email;
+            const userId = userIdResult[0].userId;
 
-            sendMail(email, "Help Offered", "Someone has offered to help on your request. Please check your Ujyalo Krishi account for details.");
-            return res.status(200).json("Help has been offered");
+            const selectUserEmailQuery = "SELECT email FROM users WHERE id = ?";
+            const selectUserEmailValues = [userId];
+
+            db.query(selectUserEmailQuery, selectUserEmailValues, (err, userEmailResult) => {
+              if (err) return res.status(500).json(err);
+
+              const email = userEmailResult[0].email;
+
+              sendMail(email, "Help Offered", "Someone has offered to help on your request. Please check your Ujyalo Krishi account for details.");
+              return res.status(200).json("Help has been offered");
+            });
           });
         });
       });
@@ -72,8 +87,8 @@ export const makeOffer = (req, res) => {
 }
 
 
-export const responseOffer = (req, res) => {
 
+export const responseOffer = (req, res) => {
   const token = req.cookies.accessToken;
   if (!token) {
     return res.status(401).json("Not Logged in to the System");
@@ -93,14 +108,52 @@ export const responseOffer = (req, res) => {
 
       db.query(q, values, (err, data) => {
         if (err) return res.status(500).json(err);
-        return res.status(200).json("Offer Status Has been Updated");
+
+        const q1 = "SELECT userId from offers where id = ?";
+        db.query(q1, [req.body.offerId], (err, data) => {
+          if (err) return res.status(500).json(err);
+
+          const userId = data[0].userId;
+
+          const q2 = "SELECT email from users WHERE id = ?";
+          db.query(q2, [userId], (err, data) => {
+            if (err) return res.status(500).json(err);
+
+            const email = data[0].email;
+
+            sendMail(email, "Offer Accepted", "Your offer to help has been accepted. Please login to your Ujyalo Krishi account to see the details.");
+            return res.status(200).json("Offer Status Has been Updated");
+          })
+        });
       });
     });
   }
-
 };
 
 
+
 export const deleteOffer = (req, res) => {
+
+  const token = req.cookies.accessToken;
+  if (!token) {
+    return res.status(401).json("Not Logged in to the System");
+  } else {
+    jwt.verify(token, process.env.verify_token, (err, userInfo) => {
+      if (err) return res.status(403).json("Unauthorized");
+
+      const q = `
+        DELETE FROM offers WHERE id = ?
+      `;
+
+      const values = [
+        req.query.id
+      ];
+
+      db.query(q, [values], (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json("Offer has been deleted");
+      });
+    })
+  }
 
 }

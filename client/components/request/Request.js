@@ -7,11 +7,21 @@ import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '@/utils/axios';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import { Alert } from '@mui/material';
 
 const Request = ({ request }) => {
 
   const { currentUser } = useContext(AuthContext);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [errors, setErrors] = useState(false);
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'bottom',
+    horizontal: 'center',
+  });
+
   const router = useRouter();
 
   const queryClient = useQueryClient();
@@ -24,6 +34,13 @@ const Request = ({ request }) => {
       onSuccess: () => {
         queryClient.invalidateQueries(["offers"]);
       },
+      onError: (err) => {
+        setErrors(err.response.data);
+        handleClick({
+          vertical: 'bottom',
+          horizontal: 'center',
+        })
+      }
     }
   );
 
@@ -43,6 +60,18 @@ const Request = ({ request }) => {
     return <div>Loading...</div>;
   }
 
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => {
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+
   return (
     <div className={styles.request}>
       <div className={styles.information}>
@@ -52,6 +81,17 @@ const Request = ({ request }) => {
           width={100}
           height={100}
         />
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          autoHideDuration={5000}
+          open={open}
+          onClose={handleClose}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity='error'>
+            {errors}
+          </Alert>
+        </Snackbar>
         <div className={styles.info}>
           <h2 className={styles.title}>
             {request?.title}

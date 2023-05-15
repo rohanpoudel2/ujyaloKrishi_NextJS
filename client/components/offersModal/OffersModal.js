@@ -50,13 +50,19 @@ export default function OffersModal({ state, setState }) {
         <Box sx={style}>
           <div className={styles.offers}>
             {
-              data && data.map((offer) => {
+              data.length ? data.map((offer) => {
                 if (offer.status !== null && offer.status === 0) {
-                  return null
+                  return (
+                    "No Offers"
+                  )
                 }
                 return <Offer key={offer.id} offer={offer} />
               }
               )
+                :
+                <div className={styles.noOffer}>
+                  <span>No one has offered to help you on your requests yet. Please check back later.</span>
+                </div>
             }
           </div>
         </Box>

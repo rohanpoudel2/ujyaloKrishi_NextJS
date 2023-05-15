@@ -1,7 +1,13 @@
 .offers {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 60vh;
+  overflow: auto;
 
+}
 
+.noOffer {
+  span {
+    font-weight: bold;
+  }
 }

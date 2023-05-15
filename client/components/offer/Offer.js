@@ -2,6 +2,7 @@ import styles from "./offer.module.scss";
 import { makeRequest } from "@/utils/axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const Offer = ({ offer }) => {
 
@@ -21,15 +22,19 @@ const Offer = ({ offer }) => {
 
   }
 
-  const rejectOffer = () => {
-    makeRequest.patch('/offers', {
-      offerId: offer?.id,
-      status: 0
-    }).then(() => {
-      queryClient.invalidateQueries(["offers"]);
-    }).catch((err) => console.error(err))
-
-    queryClient.invalidateQueries(["offers"]);
+  const rejectOffer = async () => {
+    try {
+      await axios.delete("http://localhost:8008/api/offers", {
+        withCredentials: true,
+        params: {
+          id: offer.id
+        }
+      }).then(() => {
+        queryClient.invalidateQueries(["offers"]);
+      })
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   console.log("HELLO", offer);
