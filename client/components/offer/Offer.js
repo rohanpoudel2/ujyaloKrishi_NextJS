@@ -1,12 +1,9 @@
 import styles from "./offer.module.scss";
 import { makeRequest } from "@/utils/axios";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 import axios from "axios";
 
 const Offer = ({ offer }) => {
-
-  const router = useRouter();
 
   const queryClient = useQueryClient();
 
@@ -37,7 +34,6 @@ const Offer = ({ offer }) => {
     }
   }
 
-  console.log("HELLO", offer);
 
   return (
     <div className={styles.offer}>

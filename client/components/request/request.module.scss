@@ -22,7 +22,20 @@
       display: flex;
       flex-direction: column;
       margin-left: 25px;
+
+      p {
+        margin-bottom: 5px;
+        font-size: 16px;
+      }
+
+      .location {
+        font-size: 14px;
+      }
     }
+  }
+
+  [data-theme] {
+    color: black;
   }
 
   button {
@@ -30,14 +43,12 @@
     background-color: $primary-color;
     font-weight: bold;
     font-size: 18px;
-    transition: 0.2s ease-in-out;
     border: none;
     border-radius: 20px;
 
     &:hover {
       cursor: pointer;
-      scale: 1.02;
-      transition: 0.2s ease-in-out;
+      opacity: 0.9;
     }
   }
 }

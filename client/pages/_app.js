@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import "nprogress/nprogress.css";
+import { ThemeProvider } from "next-themes";
 
 export default function App({ Component, pageProps }) {
 
@@ -20,7 +21,9 @@ export default function App({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <Component {...pageProps} />
+        <ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </AuthContextProvider>
     </QueryClientProvider>
   )

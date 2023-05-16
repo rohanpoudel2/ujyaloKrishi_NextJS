@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styles from './request.module.scss';
-import FarmerProfile from '@/public/images/volunteer/farmerProfile.webp'
+import FarmerProfile from '@/public/images/profile/default.png'
 import { withAuth } from '@/lib/withAuth';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@/context/AuthContext';
@@ -81,10 +81,10 @@ const Request = ({ request }) => {
 
 
   return (
-    <div className={styles.request}>
+    <div className={styles.request} >
       <div className={styles.information}>
         <Image
-          src={FarmerProfile}
+          src={request?.profilePic || FarmerProfile}
           alt='Farmers Profile'
           width={100}
           height={100}
@@ -112,7 +112,7 @@ const Request = ({ request }) => {
           </span>
         </div>
       </div>
-      <button onClick={handleOffer}>
+      <button onClick={handleOffer} data-theme="dark">
         Offer Help
       </button>
     </div>

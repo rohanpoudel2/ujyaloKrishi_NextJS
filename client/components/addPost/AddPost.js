@@ -53,7 +53,7 @@ const AddPost = () => {
       <span>
         {`What do you want to ask ${currentUser.name}?`}
       </span>
-      <form onSubmit={handleClick}>
+      <form onSubmit={handleClick} data-theme="dark">
         <div className={styles.formElements}>
           <input type="text" placeholder="ENTER YOUR QUESTION TITLE HERE" name="question" onChange={e => setQuestion(e.target.value)} value={question} required />
           <textarea name="description" id="description" cols="30" rows="2" placeholder="ENTER YOUR QUESTION DESCRIPTION" onChange={e => setDesc(e.target.value)} value={desc} required></textarea>

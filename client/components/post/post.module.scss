@@ -25,6 +25,14 @@
     }
   }
 
+  [data-theme] {
+    button {
+      &:first-of-type {
+        color: black;
+      }
+    }
+  }
+
   .btns {
     display: flex;
     justify-content: space-between;
@@ -62,6 +70,12 @@
 
     .first_text {
       font-weight: 500;
+    }
+
+    [data-theme] {
+      button {
+        color: blakc;
+      }
     }
 
     textarea {

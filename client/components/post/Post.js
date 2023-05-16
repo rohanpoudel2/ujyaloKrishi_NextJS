@@ -73,7 +73,7 @@ const Post = ({ question }) => {
           {question.desc}
         </p>
       </div>
-      <div className={styles.btns}>
+      <div className={styles.btns} data-theme="dark">
         <button className={styles.answersButton} onClick={() => setShowComment(!showComment)}>
           View Answers
         </button>
@@ -93,7 +93,7 @@ const Post = ({ question }) => {
               :
               <div className={styles.answers}>
                 <span className={styles.first_text}>Answer this Question</span>
-                <form onSubmit={handleClick}>
+                <form onSubmit={handleClick} data-theme="dark">
                   <textarea name="answer" placeholder="Your Answer" id="answer" cols="90" rows="2" value={answer} onChange={e => setAnswer(e.target.value)} required></textarea>
                   <button type="submit" >
                     Answer

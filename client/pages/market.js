@@ -3,7 +3,7 @@ import styles from '@/styles/market.module.scss'
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { withAuth } from "@/lib/withAuth";
 
 const columns = [
@@ -16,6 +16,17 @@ const columns = [
 
 const Market = () => {
   const [price, setPrice] = useState([]);
+
+  const [mode, setMode] = useState();
+
+  useEffect(() => {
+    window.matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', event => {
+        const colorScheme = event.matches ? "dark" : "light";
+        console.log(colorScheme); // "dark" or "light"
+        setMode(colorScheme);
+      });
+  }, []);
 
   const getPrice = async () => {
     const marketPrice = await axios.get('http://localhost:3000/api/market');
@@ -50,6 +61,9 @@ const Market = () => {
             rowsPerPageOptions={[30]}
             disableSelectionOnClick
             localeText={loading}
+            sx={mode === "dark" ? {
+              color: "white"
+            } : { color: "inherit" }}
           />
         </div>
       </GuestLayout>

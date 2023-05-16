@@ -10,6 +10,12 @@
     font-weight: bold;
   }
 
+  [data-theme] {
+    button {
+      color: black;
+    }
+  }
+
   form {
     display: flex;
     justify-content: center;

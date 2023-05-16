@@ -52,11 +52,16 @@ const OffersStatusModal = ({ show, setShow }) => {
         <Box sx={style}>
           <div className={styles.offers}>
             {
-              data?.map((data, index) => {
-                return (
-                  <AcceptedOffer data={data} key={index} />
-                )
-              })
+              data?.length ?
+                data?.map((data, index) => {
+                  return (
+                    <AcceptedOffer data={data} key={index} />
+                  )
+                })
+                :
+                <span>
+                  Non of your help offers has been accepted yet. Please check back later.
+                </span>
             }
           </div>
         </Box>

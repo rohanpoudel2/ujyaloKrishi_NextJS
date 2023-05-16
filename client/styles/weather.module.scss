@@ -13,6 +13,14 @@
     object-fit: cover;
   }
 
+  [data-theme] {
+    background-color: #121212;
+
+    button {
+      color: black;
+    }
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -44,7 +52,7 @@
     }
 
     button {
-      padding: 10px 5px;
+      padding: 8px 5px;
       font-size: 16px;
       background-color: $primary-color;
       border-radius: 20px;
@@ -52,7 +60,7 @@
       transition: 0.2s ease-in-out;
 
       &:hover {
-        scale: 1.02;
+        opacity: 0.9;
         cursor: pointer;
         transition: 0.2s ease-in-out;
       }

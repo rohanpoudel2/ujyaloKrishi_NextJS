@@ -165,7 +165,7 @@ export const getOfferStatus = (req, res) => {
     jwt.verify(token, process.env.verify_token, (err, data) => {
 
       const q = `
-      SELECT users.name, users.email , requests.title
+      SELECT users.name, users.email , requests.title, offers.id
       FROM offers
       INNER JOIN requests ON offers.requestId = requests.id
       INNER JOIN users ON requests.userId = users.id
