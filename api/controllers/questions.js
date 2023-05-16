@@ -1,6 +1,7 @@
 import moment from "moment";
 import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
+import Filter from "bad-words";
 
 export const getQuestions = (req, res) => {
 
@@ -29,6 +30,7 @@ export const getQuestions = (req, res) => {
 
 export const addQuestion = (req, res) => {
   const token = req.cookies.accessToken;
+  const filter = new Filter();
 
   if (!token) {
     return res.status(401).json("Not Logged in");
@@ -38,9 +40,12 @@ export const addQuestion = (req, res) => {
 
       const q = "INSERT INTO questions (`question`, `desc`, `userId`, `createdAt`) VALUES (?)";
 
+      const qns = filter.clean(req.body.question);
+      const desc = filter.clean(req.body.desc);
+
       const values = [
-        req.body.question,
-        req.body.desc,
+        qns,
+        desc,
         userInfo.id,
         moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
       ];
