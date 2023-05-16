@@ -4,6 +4,31 @@
 .volunteers {
   margin-top: 120px;
 
+  .topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
+
+    .right {
+      button {
+        background-color: $secondary-color;
+        padding: 10px;
+        font-size: 16px;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+
+        &:hover {
+          opacity: 0.9;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   .requestForm {
     display: flex;
     flex-direction: column;

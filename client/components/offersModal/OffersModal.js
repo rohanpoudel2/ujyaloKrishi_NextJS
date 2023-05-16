@@ -50,7 +50,7 @@ export default function OffersModal({ state, setState }) {
         <Box sx={style}>
           <div className={styles.offers}>
             {
-              data.length ? data.map((offer) => {
+              data?.length ? data.map((offer) => {
                 if (offer.status !== null && offer.status === 0) {
                   return (
                     "No Offers"

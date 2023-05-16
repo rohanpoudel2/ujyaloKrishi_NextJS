@@ -45,7 +45,6 @@ export const makeOffer = (req, res) => {
         if (err) return res.status(500).json(err);
 
         if (existingOffer.length > 0) {
-          // User has already made an offer for the same request
           return res.status(400).json("Offer already exists for this request");
         }
 
@@ -156,4 +155,28 @@ export const deleteOffer = (req, res) => {
     })
   }
 
+}
+
+export const getOfferStatus = (req, res) => {
+  const token = req.cookies.accessToken;
+  if (!token) {
+    return res.status(401).json("Not Logged in to the System");
+  } else {
+    jwt.verify(token, process.env.verify_token, (err, data) => {
+
+      const q = `
+      SELECT users.name, users.email , requests.title
+      FROM offers
+      INNER JOIN requests ON offers.requestId = requests.id
+      INNER JOIN users ON requests.userId = users.id
+      WHERE offers.status = '1' AND offers.userId = ?
+    `;
+
+      db.query(q, [req.query.id], (err, data) => {
+        if (err) return res.status(500).json(err);
+        return res.status(200).json(data);
+      });
+
+    })
+  }
 }

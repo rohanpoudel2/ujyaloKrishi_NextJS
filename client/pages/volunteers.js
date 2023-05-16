@@ -11,6 +11,7 @@ import OffersModal from '@/components/offersModal/OffersModal';
 import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import OffersStatusModal from '@/components/offersStatusModal/OffersStatusModal';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -20,6 +21,7 @@ const Volunteers = () => {
 
   const [showOffers, setShowOffers] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [showOfferStatus, setShowOfferStatus] = useState(false);
 
   const [inputs, setInputs] = useState({
     title: "",
@@ -77,13 +79,23 @@ const Volunteers = () => {
         <div className={styles.volunteers}>
           {currentUser?.type !== "farmer" ?
             <>
+              {
+                showOfferStatus && <OffersStatusModal show={showOfferStatus} setShow={setShowOfferStatus} />
+              }
               <div className={styles.topBar}>
-                <h1 className={styles.intro}>
-                  Help Farmers in Need ...
-                </h1>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                </p>
+                <div className={styles.left}>
+                  <h1 className={styles.intro}>
+                    Help Farmers in Need ...
+                  </h1>
+                  <p>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  </p>
+                </div>
+                <div className={styles.right}>
+                  <button onClick={() => setShowOfferStatus(!showOfferStatus)}>
+                    Offers Status
+                  </button>
+                </div>
               </div>
               <div className={styles.requests}>
                 {

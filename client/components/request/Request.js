@@ -7,7 +7,6 @@ import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '@/utils/axios';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 
@@ -15,12 +14,14 @@ const Request = ({ request }) => {
 
   const { currentUser } = useContext(AuthContext);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const [errors, setErrors] = useState(false);
+  const [msg, setMsg] = useState(false);
   const [state, setState] = useState({
     open: false,
     vertical: 'bottom',
     horizontal: 'center',
   });
+
+  const [alert, setAlert] = useState("info");
 
   const router = useRouter();
 
@@ -33,9 +34,16 @@ const Request = ({ request }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["offers"]);
+        setAlert("success");
+        setMsg("Help Offer Sent Successfully");
+        handleClick({
+          vertical: 'bottom',
+          horizontal: 'center',
+        });
       },
       onError: (err) => {
-        setErrors(err.response.data);
+        setAlert("error");
+        setMsg(err.response.data);
         handleClick({
           vertical: 'bottom',
           horizontal: 'center',
@@ -88,8 +96,8 @@ const Request = ({ request }) => {
           onClose={handleClose}
           key={vertical + horizontal}
         >
-          <Alert onClose={handleClose} severity='error'>
-            {errors}
+          <Alert onClose={handleClose} severity={alert}>
+            {msg}
           </Alert>
         </Snackbar>
         <div className={styles.info}>
