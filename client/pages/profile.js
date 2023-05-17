@@ -13,6 +13,7 @@ const Profile = () => {
 
   const { logout, currentUser } = useContext(AuthContext);
   const [profile, setProfile] = useState(null);
+  const [showCode, setShowCode] = useState(false);
 
   const router = useRouter();
 
@@ -64,7 +65,29 @@ const Profile = () => {
     })
   );
 
-  console.log(data);
+  const verifyEmail = () => {
+    makeRequest.post('/auth/verify').then(() => {
+      setShowCode(!showCode);
+      queryClient.invalidateQueries(["user"]);
+      console.log("Email Sent");
+    }).catch((err) => console.error(err));
+  }
+
+  const verify = (e) => {
+    e.preventDefault();
+    verifyMutator.mutate({ token: data?.verificationToken });
+  }
+
+  const verifyMutator = useMutation(
+    (token) => {
+      return makeRequest.post('/auth/confirm', token);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["user"]);
+      }
+    }
+  );
 
   return (
     <GuestLayout>
@@ -87,6 +110,22 @@ const Profile = () => {
               <div className={styles.true}>
                 Verified: {data?.verified ? "True" : "False"}
               </div>
+              {
+                data?.verified ? "" :
+                  <>
+                    <button onClick={verifyEmail}>
+                      Verify Account
+                    </button>
+                    {
+                      showCode && <form onSubmit={verify}>
+                        <input type="text" placeholder="Enter your Verification Code" required />
+                        <button type="submit">Verify</button>
+                      </form>
+                    }
+
+                  </>
+              }
+
             </span>
             <button onClick={handleLogout}>
               LogOut
