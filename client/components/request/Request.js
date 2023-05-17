@@ -84,7 +84,7 @@ const Request = ({ request }) => {
     <div className={styles.request} >
       <div className={styles.information}>
         <Image
-          src={request?.profilePic || FarmerProfile}
+          src={request?.profilePic ? `/upload/${request?.profilePic}` : FarmerProfile}
           alt='Farmers Profile'
           width={100}
           height={100}

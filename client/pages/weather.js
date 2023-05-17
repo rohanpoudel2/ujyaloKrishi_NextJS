@@ -34,7 +34,7 @@ const Weather = () => {
           src={WeatherImage}
           alt="weatherNepal"
         />
-        <form data-theme="dark">
+        <form>
           <div className={styles.info}>
             <h1>Get The Weather</h1>
             <span>Enter a city, and get the weather below!</span>

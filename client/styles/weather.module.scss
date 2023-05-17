@@ -13,11 +13,9 @@
     object-fit: cover;
   }
 
-  [data-theme] {
-    background-color: #121212;
-
-    button {
-      color: black;
+  @media(prefers-color-scheme: dark) {
+    form {
+      background-color: black !important;
     }
   }
 
