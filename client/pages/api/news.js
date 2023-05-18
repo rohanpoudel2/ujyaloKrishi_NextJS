@@ -1,15 +1,6 @@
 import puppeteer from 'puppeteer';
-import cache from '../../utils/cache';
 
-export default async function handler(req, res) {
-  const cachedData = cache.get('newsData');
-  const isFresh = cachedData && (Date.now() - cachedData.timestamp) < 3600000;
-
-  if (isFresh) {
-    console.log('Serving from cache...');
-    return res.status(200).json(cachedData.data);
-  }
-
+export default async (req, res) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -35,7 +26,5 @@ export default async function handler(req, res) {
 
   await browser.close();
 
-  cache.set('newsData', { data, timestamp: Date.now() });
-
   res.status(200).json(data);
-}
+};

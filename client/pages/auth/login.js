@@ -7,6 +7,7 @@ import { AuthContext } from "@/context/AuthContext";
 import Image from "next/image";
 import LogoSmall from "@/public/logo_small.png";
 import LoginBackground from "@/public/images/auth/login.jpeg";
+import { loginAccess } from "@/lib/loginAccess";
 
 const Register = () => {
 
@@ -42,7 +43,7 @@ const Register = () => {
       }, 3000);
     } catch (error) {
       setSuccess(null);
-      setErr(error?.response.data);
+      setErr(error?.response?.data);
       console.error(error);
       console.log(err)
     }
@@ -75,4 +76,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default loginAccess(Register)

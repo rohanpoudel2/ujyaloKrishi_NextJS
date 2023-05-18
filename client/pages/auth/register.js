@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import LoginBackground from "@/public/images/auth/login.jpeg";
 import LogoSmall from "@/public/logo_small.png";
 import Link from "next/link";
+import { loginAccess } from "@/lib/loginAccess";
 
 const Register = () => {
 
@@ -81,4 +82,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default loginAccess(Register)

@@ -8,12 +8,21 @@ import ProfileImage from "@/public/images/profile/default.png"
 import { useRouter } from "next/router";
 import { makeRequest } from "@/utils/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Snackbar from '@mui/material/Snackbar';
+import { Alert } from '@mui/material';
 
 const Profile = () => {
 
   const { logout, currentUser } = useContext(AuthContext);
   const [profile, setProfile] = useState(null);
   const [showCode, setShowCode] = useState(false);
+  const [alert, setAlert] = useState("info");
+  const [msg, setMsg] = useState(false);
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'bottom',
+    horizontal: 'center',
+  });
 
   const router = useRouter();
 
@@ -67,6 +76,12 @@ const Profile = () => {
 
   const verifyEmail = () => {
     makeRequest.post('/auth/verify').then(() => {
+      setAlert("success");
+      setMsg("An Email with verification code has been sent successfully. Please check your email.");
+      handleClick({
+        vertical: 'bottom',
+        horizontal: 'center',
+      });
       setShowCode(!showCode);
       queryClient.invalidateQueries(["user"]);
       console.log("Email Sent");
@@ -85,14 +100,50 @@ const Profile = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["user"]);
+        setAlert("success");
+        setMsg("Congratulations!!, Your account is now verified.");
+        handleClick({
+          vertical: 'bottom',
+          horizontal: 'center',
+        });
+      },
+      onError: (err) => {
+        setAlert("error");
+        setMsg("Something went wrong, please try again.");
+        handleClick({
+          vertical: 'bottom',
+          horizontal: 'center',
+        });
+        console.error(err);
       }
     }
   );
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => {
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
 
   return (
     <GuestLayout>
       <div className={styles.profile}>
         <div className={styles.userElements}>
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            autoHideDuration={5000}
+            open={open}
+            onClose={handleClose}
+            key={vertical + horizontal}
+          >
+            <Alert onClose={handleClose} severity={"success"}>
+              {msg}
+            </Alert>
+          </Snackbar>
           <div className={styles.left}>
             <span className={styles.type}>
               {data?.type}
