@@ -25,17 +25,17 @@ const Nav = () => {
           </div>
           <ul className={styles.navElements}>
             {currentUser ? (
-              <li className={styles.navElement}>
-                <Link href={'/profile'}>
+              <Link href={'/profile'}>
+                <li className={styles.navElement}>
                   Profile
-                </Link>
-              </li>
+                </li>
+              </Link>
             ) : (
-              <li className={styles.navElement}>
-                <Link href={'/auth/register'}>
+              <Link href={'/auth/register'}>
+                <li className={styles.navElement}>
                   SignUp
-                </Link>
-              </li>
+                </li>
+              </Link>
             )}
           </ul>
         </Container>

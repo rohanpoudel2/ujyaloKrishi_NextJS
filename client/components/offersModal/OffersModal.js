@@ -12,12 +12,22 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: '90%',
+  maxWidth: 200,
   bgcolor: "white",
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  '@media (min-width: 600px)': {
+    width: 600,
+    maxWidth: '80%',
+  },
+  '@media (min-width: 400px)': {
+    width: 400,
+    maxWidth: '80%',
+  },
 };
+
 
 
 export default function OffersModal({ state, setState }) {

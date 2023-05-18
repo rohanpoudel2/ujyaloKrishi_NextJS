@@ -11,6 +11,13 @@
     border-bottom: 1px solid black;
     padding-bottom: 20px;
 
+    @include mobile {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
     .right {
       button {
         background-color: $secondary-color;
@@ -24,6 +31,10 @@
         &:hover {
           opacity: 0.9;
           cursor: pointer;
+        }
+
+        @include mobile {
+          margin-top: 20px;
         }
       }
     }

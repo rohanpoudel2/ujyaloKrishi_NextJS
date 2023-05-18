@@ -1,4 +1,5 @@
 @import "./colors.scss";
+@import "./mixins/responsive/responsive.scss";
 
 .profile {
   height: 100vh;
@@ -9,12 +10,23 @@
   .userElements {
     display: flex;
 
+    @include mobile {
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: center;
+    }
+
     .left {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       margin-right: 50px;
+
+      @include mobile {
+        align-items: center;
+        margin-right: 0px;
+      }
 
       .name {
         font-weight: bold;
