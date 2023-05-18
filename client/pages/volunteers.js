@@ -12,6 +12,7 @@ import * as React from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import OffersStatusModal from '@/components/offersStatusModal/OffersStatusModal';
+import Head from 'next/head';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -76,6 +77,9 @@ const Volunteers = () => {
   return (
     <>
       <GuestLayout>
+        <Head>
+          <title>Volunteers - Ujyalo Krishi</title>
+        </Head>
         <div className={styles.volunteers}>
           {currentUser?.type !== "farmer" ?
             <>

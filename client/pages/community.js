@@ -8,6 +8,7 @@ import { makeRequest } from "@/utils/axios";
 import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const Community = () => {
   const { currentUser } = useContext(AuthContext);
@@ -38,6 +39,9 @@ const Community = () => {
 
   return (
     <GuestLayout>
+      <Head>
+        <title>Community - Ujyalo Krishi</title>
+      </Head>
       <div className={styles.community}>
         <AddPost />
         <h3 className={styles.title}>

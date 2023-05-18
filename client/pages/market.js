@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { withAuth } from "@/lib/withAuth";
+import Head from "next/head";
 
 const columns = [
   { field: "commodity", headerName: "Commodity", width: 200 },
@@ -16,7 +17,6 @@ const columns = [
 
 const Market = () => {
   const [price, setPrice] = useState([]);
-
   const [mode, setMode] = useState();
 
   useEffect(() => {
@@ -33,16 +33,15 @@ const Market = () => {
     const cachedData = localStorage.getItem("marketData");
     const isFresh =
       cachedData &&
-      JSON.parse(cachedData).timestamp + 3 * 60 * 60 * 1000 > Date.now();
+      new Date(JSON.parse(cachedData).timestamp).toLocaleDateString() ===
+      new Date().toLocaleDateString();
 
     if (isFresh) {
       console.log("Serving from cache...");
       setPrice(JSON.parse(cachedData).data);
     } else {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/market"
-        );
+        const response = await axios.get("http://localhost:3000/api/market");
         const formattedData = response.data.map((row, index) => ({
           id: index,
           commodity: row[0],
@@ -75,7 +74,20 @@ const Market = () => {
   return (
     <>
       <GuestLayout>
+        <Head>
+          <title>Market Price - Ujyalo krishi</title>
+        </Head>
         <div className={styles.market}>
+          <div className={styles.date}>
+            <span>
+              Price As Of:{" "}
+              {new Date().toLocaleDateString("en-US", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </span>
+          </div>
           <DataGrid
             rows={price}
             columns={columns}

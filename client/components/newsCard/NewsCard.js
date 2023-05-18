@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const NewsCard = ({ data }) => {
   return (
-    <Link href={data.link}>
+    <Link href={data.link} target='_blank'>
       <div className={styles.newscard}>
         <img src={data.image} alt="newsImage" />
         <h2>{data.title}</h2>

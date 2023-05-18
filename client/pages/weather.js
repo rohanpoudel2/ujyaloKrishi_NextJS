@@ -5,7 +5,7 @@ import Image from "next/image";
 import WeatherImage from "@/public/images/weather/weather.jpeg"
 import axios from "axios";
 import { useState } from "react";
-
+import Head from "next/head";
 
 const Weather = () => {
 
@@ -29,6 +29,9 @@ const Weather = () => {
 
   return (
     <GuestLayout>
+      <Head>
+        <title>Weather - Ujyalo Krishi</title>
+      </Head>
       <div className={styles.weather}>
         <Image
           src={WeatherImage}

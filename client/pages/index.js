@@ -3,7 +3,7 @@ import styles from '@/styles/Home.module.scss'
 import Tool from '@/components/tools/Tool'
 import farmersTools from '@/utils/farmersTools'
 import volunteersTools from "@/utils/volunteersTools"
-
+import Head from 'next/head'
 import { withAuth } from '@/lib/withAuth'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '@/context/AuthContext'
@@ -21,6 +21,9 @@ const Index = () => {
   return (
     <>
       <GuestLayout>
+        <Head>
+          <title>Ujyalo Krishi</title>
+        </Head>
         <div className={styles.welcomeText}>
           <h2>Welcome to Ujyalo Krishi</h2>
           <span>Look around and explore various tools that are available.</span>

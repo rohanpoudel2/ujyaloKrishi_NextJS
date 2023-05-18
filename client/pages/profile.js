@@ -10,6 +10,7 @@ import { makeRequest } from "@/utils/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
+import Head from "next/head";
 
 const Profile = () => {
 
@@ -131,6 +132,9 @@ const Profile = () => {
 
   return (
     <GuestLayout>
+      <Head>
+        <title>{currentUser.name} - Ujyalo Krishi</title>
+      </Head>
       <div className={styles.profile}>
         <div className={styles.userElements}>
           <Snackbar

@@ -3,12 +3,16 @@ import styles from '@/styles/plant.module.scss';
 import FeatureImage from '@/public/images/plant/featureImage.png';
 import Image from "next/image";
 import { withAuth } from "@/lib/withAuth";
+import Head from "next/head";
 
 const Plant = () => {
 
   return (
     <>
       <GuestLayout>
+        <Head>
+          <title>Plant Disease Detection - Ujyalo Krishi</title>
+        </Head>
         <div className={styles.plant}>
           <div className={styles.left}>
             <Image

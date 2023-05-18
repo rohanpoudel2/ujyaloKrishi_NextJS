@@ -5,8 +5,9 @@ export default async (req, res) => {
   const page = await browser.newPage();
 
   await page.setViewport({ width: 1920, height: 1080 });
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36');
 
-  await page.goto('https://krishidaily.com/category/news/');
+  await page.goto('https://krishidaily.com/category/banner/');
 
   const data = await page.evaluate(() => {
     const newsList = document.querySelectorAll('.td_module_2');
