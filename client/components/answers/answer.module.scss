@@ -1,3 +1,5 @@
+@import "../../styles/mixins/responsive/responsive.scss";
+
 .abc {
   padding: 10px 0px;
   margin: 10px 0px;
@@ -28,6 +30,11 @@
     justify-content: space-between;
     width: 100%;
 
+    @include custom {
+      flex-direction: column;
+      align-items: normal;
+    }
+
     .ans {
       .user {
         font-weight: 500;
@@ -49,6 +56,10 @@
       background-color: red;
       color: white;
       border-radius: 10px;
+
+      @include custom {
+        margin-top: 10px;
+      }
     }
 
   }

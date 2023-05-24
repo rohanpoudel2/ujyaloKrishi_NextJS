@@ -1,4 +1,5 @@
 @import "../../styles/colors.scss";
+@import "../../styles/mixins/responsive/responsive.scss";
 
 .post {
   width: 100%;
@@ -44,6 +45,12 @@
       border-radius: 10px;
       border: none;
       cursor: pointer;
+
+      @include custom {
+        &:first-of-type {
+          margin-right: 10px;
+        }
+      }
 
       &:hover {
         transition: 0.2s ease-in-out;
