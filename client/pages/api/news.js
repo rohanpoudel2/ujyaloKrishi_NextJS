@@ -7,17 +7,17 @@ export default async (req, res) => {
   await page.setViewport({ width: 1920, height: 1080 });
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36');
 
-  await page.goto('https://krishidaily.com/category/banner/');
+  await page.goto('https://halokhabar.com/content/1/News');
 
   const data = await page.evaluate(() => {
-    const newsList = document.querySelectorAll('.td_module_2');
+    const newsList = document.querySelectorAll('.md-newsbox');
     const data = [];
 
     newsList.forEach((news) => {
-      const title = news.querySelector('.td-module-title').textContent;
-      const link = news.querySelector('.td-module-title a').href;
-      const image = news.querySelector('.td-image-wrap img');
-      const lazySrc = image.getAttribute('data-img-url');
+      const title = news.querySelector('.md-detail h3').textContent;
+      const link = news.querySelector('.md-detail h3 a').href;
+      const image = news.querySelector('.md-newsbox figure img');
+      const lazySrc = image.getAttribute('src');
 
       data.push({ title, link, image: lazySrc });
     });

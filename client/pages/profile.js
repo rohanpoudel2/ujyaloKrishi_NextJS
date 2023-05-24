@@ -133,7 +133,7 @@ const Profile = () => {
   return (
     <GuestLayout>
       <Head>
-        <title>{currentUser.name} - Ujyalo Krishi</title>
+        <title>{currentUser?.name} - Ujyalo Krishi</title>
       </Head>
       <div className={styles.profile}>
         <div className={styles.userElements}>

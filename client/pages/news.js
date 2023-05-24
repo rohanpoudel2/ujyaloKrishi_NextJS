@@ -41,6 +41,35 @@ const News = () => {
     setLoading(false);
   };
 
+  const getEnglishNews = async () => {
+    setNews([]);
+    setLoading(true);
+    const cachedData = localStorage.getItem("englishNewsData");
+    const isFresh =
+      cachedData &&
+      JSON.parse(cachedData).timestamp + 60 * 60 * 1000 > Date.now();
+
+    if (isFresh) {
+      console.log("Serving from cache...");
+      setNews(JSON.parse(cachedData).data);
+    } else {
+      try {
+        const response = await axios.get("http://localhost:3000/api/englishnews");
+        const newsData = response.data;
+        setNews(newsData);
+
+        localStorage.setItem(
+          "englishNewsData",
+          JSON.stringify({ data: newsData, timestamp: Date.now() })
+        );
+      } catch (error) {
+        console.error("Error fetching news data:", error);
+      }
+    }
+    console.log(news)
+    setLoading(false);
+  };
+
   return (
     <>
       <GuestLayout>
@@ -58,6 +87,10 @@ const News = () => {
                     Maintain an ongoing awareness of developments in the agricultural
                     sector of Nepal
                   </h1>
+                  <div className={styles.btns}>
+                    <button onClick={() => getEnglishNews()}>EN 🇬🇧</button>
+                    <button onClick={() => getNews()}>NP 🇳🇵</button>
+                  </div>
                 </div>
                 <div className={styles.newsCards}>
                   {news?.map((news, index) => (
