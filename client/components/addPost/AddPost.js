@@ -59,7 +59,7 @@ const AddPost = () => {
           <textarea name="description" id="description" cols="30" rows="2" placeholder="ENTER YOUR QUESTION DESCRIPTION" onChange={e => setDesc(e.target.value)} value={desc} required></textarea>
         </div>
         <button type="submit">
-          <i class="fa-solid fa-pencil"></i>
+          <i className="fa-solid fa-pencil"></i>
           Ask
         </button>
       </form>

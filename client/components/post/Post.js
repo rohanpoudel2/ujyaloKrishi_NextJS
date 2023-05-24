@@ -4,6 +4,7 @@ import moment from "moment";
 import { makeRequest } from "@/utils/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "@/context/AuthContext";
+import Answers from "../answers/Answers";
 import axios from "axios";
 
 const Post = ({ question }) => {
@@ -60,6 +61,21 @@ const Post = ({ question }) => {
     }
   }
 
+  const deleteAnswer = async (id) => {
+    try {
+      await axios.delete("http://localhost:8008/api/answers", {
+        withCredentials: true,
+        params: {
+          id
+        }
+      }).then(() => {
+        queryClient.invalidateQueries(["answers"]);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className={styles.post}>
       <span className={styles.askedDate}>
@@ -78,11 +94,12 @@ const Post = ({ question }) => {
           View Answers
         </button>
         {
-          question.userId === currentUser.id ? <button onClick={handleDelete} className={styles.deleteButton}> 🗑️ Delete
+          question.userId === currentUser.id ? <button onClick={handleDelete} className={styles.deleteButton}><i className="fa-solid fa-xmark"></i> Delete Question
           </button> :
             ""
         }
       </div>
+
       {
         showComment && (
           error ?
@@ -100,20 +117,8 @@ const Post = ({ question }) => {
                   </button>
                 </form>
                 <ul>
-                  {data.map((answer) => (
-                    <li key={answer.id}>
-                      <div className={styles.user}>
-                        {answer.name}
-                      </div>
-                      <div className={styles.answer}>
-                        {answer.desc}
-                      </div>
-                      <div className={styles.createdAt}>
-                        {
-                          moment(answer.answeredAt).fromNow()
-                        }
-                      </div>
-                    </li>
+                  {data.map((answer, index) => (
+                    <Answers key={index} answer={answer} deleteAnswer={deleteAnswer} />
                   ))}
                 </ul>
               </div>)

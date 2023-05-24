@@ -11,6 +11,7 @@ import answerRoutes from "./routes/answers.js";
 import requestRoutes from "./routes/requests.js";
 import offerRoutes from "./routes/offers.js";
 import userRoutes from "./routes/users.js";
+import voteRoutes from "./routes/votes.js";
 
 //middlewares
 import cors from "cors";
@@ -49,6 +50,7 @@ app.use('/api/answers', answerRoutes);
 app.use('/api/requests', requestRoutes);
 app.use('/api/offers', offerRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/votes', voteRoutes);
 
 
 app.listen(8008, () => {

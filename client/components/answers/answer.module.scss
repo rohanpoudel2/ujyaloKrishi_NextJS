@@ -1,0 +1,57 @@
+.abc {
+  padding: 10px 0px;
+  margin: 10px 0px;
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+
+  .upvote {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    align-items: center;
+
+    i {
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        scale: 1.2;
+        transition: 0.2s ease-in-out;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .component {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .ans {
+      .user {
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .answer {
+        font-weight: 300;
+        font-size: 16px;
+      }
+
+      .createdAt {
+        font-weight: 200;
+        font-size: 12px;
+      }
+    }
+
+    .deleteButton {
+      background-color: red;
+      color: white;
+      border-radius: 10px;
+    }
+
+  }
+
+
+}
