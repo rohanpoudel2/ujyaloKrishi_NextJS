@@ -106,3 +106,4 @@ up and running smoothly on your system.
 
 **Note: The installation guidelines above assume a basic understanding
 of the required technologies.**
+[**Link to HuggingFace Repository**](https://huggingface.co/spaces/hacksberg/plant/tree/main)
